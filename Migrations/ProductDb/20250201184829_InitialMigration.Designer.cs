@@ -5,13 +5,14 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OnlineBookStore.Data;
+using OnlineBookStore.Database;
 
 
 #nullable disable
 
 namespace OnlineBookStore.Migrations.ProductDb
 {
-    [DbContext(typeof(ProductDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20250201184829_InitialMigration")]
     partial class InitialMigration
     {

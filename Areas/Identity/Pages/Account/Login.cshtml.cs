@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using OnlineBookStore.Data;
+using OnlineBookStore.Database;
 
 namespace OnlineBookStore.Areas.Identity.Pages.Account
 {
