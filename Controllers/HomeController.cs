@@ -15,7 +15,7 @@ namespace OnlineBookStore.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Customer")]
+        //[Authorize(Roles = "Customer")]
         public IActionResult Index()
         {
             return View();

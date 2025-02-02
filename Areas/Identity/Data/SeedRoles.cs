@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using OnlineBookStore.Models;
 
 namespace OnlineBookStore.Areas.Identity.Data
 {
@@ -7,7 +8,7 @@ namespace OnlineBookStore.Areas.Identity.Data
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             string[] roleNames = { "Admin", "Customer" };
             IdentityResult roleResult;
@@ -25,7 +26,7 @@ namespace OnlineBookStore.Areas.Identity.Data
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
             {
-                var user = new IdentityUser { UserName = adminEmail, Email = adminEmail };
+                var user = new ApplicationUser { UserName = adminEmail, Email = adminEmail };
                 var createUser = await userManager.CreateAsync(user, "admin123"); // Set a strong password
                 if (createUser.Succeeded)
                 {
