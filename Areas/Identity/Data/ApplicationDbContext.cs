@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using OnlineBookStore.Data;
 using OnlineBookStore.Models;
 
-namespace OnlineBookStore.Database
+namespace OnlineBookStore.Areas.Identity.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

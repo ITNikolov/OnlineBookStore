@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 
-namespace OnlineBookStore.Data
+namespace OnlineBookStore.Areas.Identity.Data
 {
     public static class SeedRoles
     {

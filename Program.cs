@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using OnlineBookStore.Data;
-using OnlineBookStore.Database;
+using OnlineBookStore.Areas.Identity.Data;
+using OnlineBookStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +12,13 @@ var connectionString = builder.Configuration.GetConnectionString("DevConnection"
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 // Use Identity with this DbContext
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultTokenProviders();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
 
 var app = builder.Build();
 
@@ -35,8 +36,9 @@ using (var scope = app.Services.CreateScope())
 
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting();  // Make sure this comes before endpoint mappings
 
+app.UseAuthentication();  // Ensure authentication is called before authorization
 app.UseAuthorization();
 
 app.MapControllerRoute(
