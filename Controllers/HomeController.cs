@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineBookStore.Models;
 
@@ -6,6 +7,7 @@ namespace OnlineBookStore.Controllers
 {
     public class HomeController : Controller
     {
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -13,12 +15,8 @@ namespace OnlineBookStore.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Customer")]
         public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
         {
             return View();
         }
