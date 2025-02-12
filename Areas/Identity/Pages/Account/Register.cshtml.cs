@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using OnlineBookStore.Models;
 
-namespace OnlineBookStore.Views.Account
+namespace OnlineBookStore.Areas.Identity.Pages.Account
 {
     public class RegisterModel : PageModel
     {
