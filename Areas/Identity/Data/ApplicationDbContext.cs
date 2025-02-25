@@ -10,6 +10,7 @@ namespace OnlineBookStore.Areas.Identity.Data
             : base(options) { }
 
 
+        public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
     }
 }
