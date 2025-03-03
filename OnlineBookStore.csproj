@@ -22,7 +22,14 @@
 		<Folder Include="Areas\Identity\Data\" />
 		<Folder Include="Pages\" />
 		<Folder Include="Views\Account\" />
-		<Folder Include="Views\Admin\Product\" />
+		<Folder Include="wwwroot\images\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Update="Views\Admin\Product\Index.cshtml">
+	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	  </Content>
 	</ItemGroup>
 
 </Project>
