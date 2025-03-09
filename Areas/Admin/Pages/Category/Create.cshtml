@@ -1,4 +1,6 @@
-﻿@model Category
+﻿@page
+@model OnlineBookStore.Areas.Admin.Pages.Category.CreateModel
+@using OnlineBookStore.Models
 
 <div class="card shadow border-0 mt-4">
 	<div class="card-header bg-secondary bg-gradient ml-0 py-3">
@@ -24,7 +26,7 @@
 					<span asp-validation-for="DisplayOrder" class="text-danger"></span>
 				</div>
 				<button type="submit" class="btn btn-primary pt-2" style="width:150px">Create</button>
-				<a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary pt-2" style="width:150px">
+				<a asp-page="Index" class="btn btn-outline-primary pt-2" style="width:150px">
 					Back to List
 				</a>
 			</div>

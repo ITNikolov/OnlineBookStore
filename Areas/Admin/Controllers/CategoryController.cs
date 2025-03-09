@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OnlineBookStore.Areas.Identity.Data;
+using OnlineBookStore.Data;
 using OnlineBookStore.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,23 +24,7 @@ namespace OnlineBookStore.Areas.Admin.Controllers
             return View(objCategoryList);
         }
 
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Create(Category obj)
-        {
-            if (ModelState.IsValid)
-            {
-                _db.Categories.Add(obj);
-                _db.SaveChanges();
-                TempData["success"] = "Category created successfully";
-                return RedirectToAction("Index");
-            }
-            return View(obj);
-        }
+        
 
         public IActionResult Edit(int? id)
         {

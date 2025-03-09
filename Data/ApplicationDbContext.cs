@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using OnlineBookStore.Models;
 
-namespace OnlineBookStore.Areas.Identity.Data
+namespace OnlineBookStore.Data
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

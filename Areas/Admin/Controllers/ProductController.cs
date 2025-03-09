@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using OnlineBookStore.Areas.Identity.Data;
+using OnlineBookStore.Data;
 using OnlineBookStore.Models;
 using OnlineBookStore.Views;
 using System.Collections.Generic;

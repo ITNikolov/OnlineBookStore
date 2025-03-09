@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using OnlineBookStore.Areas.Identity.Data;
+using OnlineBookStore.Data;
 using OnlineBookStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
