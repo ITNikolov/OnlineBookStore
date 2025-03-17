@@ -14,12 +14,12 @@ var connectionString = builder.Configuration.GetConnectionString("DevConnection"
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 // Use Identity with this DbContext
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultTokenProviders();
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
 
@@ -28,7 +28,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Error");
 }
 
 using (var scope = app.Services.CreateScope())
@@ -43,10 +43,6 @@ app.UseRouting();  // Make sure this comes before endpoint mappings
 
 app.UseAuthentication();  // Ensure authentication is called before authorization
 app.UseAuthorization();
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
 
