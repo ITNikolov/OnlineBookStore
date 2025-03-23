@@ -1,35 +1,42 @@
 ﻿@page
 @model OnlineBookStore.Areas.Identity.Pages.Account.LoginModel
-
 @{
-    ViewData["Title"] = "Log in";
-    Layout = "/Pages/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Login Test";
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
-<section>
-    <form id="account" method="post">
-        <h2>Welcome Back.</h2>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+<div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
 
-        <div class="form-floating mb-3">
-            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-            <label asp-for="Input.Email" class="form-label">Email</label>
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
+<form method="post" asp-area="Identity" asp-page="/Account/Login">
+	@Html.AntiForgeryToken()
 
-        <div class="form-floating mb-3">
-            <input asp-for="Input.Password" class="form-control" type="password" autocomplete="current-password" aria-required="true" placeholder="password" />
-            <label asp-for="Input.Password" class="form-label">Password</label>
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
+	<h2>Login Test</h2>
+	<hr />
 
-        <div>
-            <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
-        </div>
-    </form>
-</section>
+	<div class="mb-3">
+		<label asp-for="Input.Email">Email</label>
+		<input asp-for="Input.Email"
+			   class="form-control"
+			   name="Input.Email"
+			   id="Input_Email"
+			   autocomplete="username" />
+		<span asp-validation-for="Input.Email" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Input.Password">Password</label>
+		<input asp-for="Input.Password"
+			   class="form-control"
+			   name="Input.Password"
+			   id="Input_Password"
+			   type="password"
+			   autocomplete="current-password" />
+		<span asp-validation-for="Input.Password" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-primary">Log in</button>
+</form>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+	<partial name="_ValidationScriptsPartial" />
 }

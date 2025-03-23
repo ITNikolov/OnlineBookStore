@@ -63,10 +63,19 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            Console.WriteLine($"[DEBUG] OnPostAsync Called: Email='{Input.Email}', Password='{Input.Password}'");
 
             if (!ModelState.IsValid)
             {
+                Console.WriteLine("[DEBUG] ModelState is INVALID!");
+                foreach (var state in ModelState)
+                {
+                    foreach (var error in state.Value.Errors)
+                    {
+                        Console.WriteLine($"[DEBUG] Field '{state.Key}' Error: {error.ErrorMessage}");
+                    }
+                }
                 return Page();
             }
 
@@ -74,21 +83,16 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
 
             if (result.Succeeded)
             {
-                _logger.LogInformation("User logged in.");
+                Console.WriteLine("[DEBUG] Login Succeeded!");
                 return LocalRedirect(returnUrl);
             }
-            if (result.RequiresTwoFactor)
-            {
-                return RedirectToPage("./LoginWith2fa", new { ReturnUrl = returnUrl, Input.RememberMe });
-            }
-            if (result.IsLockedOut)
-            {
-                _logger.LogWarning("User account locked out.");
-                return RedirectToPage("./Lockout");
-            }
 
+            Console.WriteLine("[DEBUG] Login FAILED! Invalid credentials.");
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return Page();
         }
+
     }
+
 }
+
