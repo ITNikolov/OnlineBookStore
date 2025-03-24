@@ -14,21 +14,21 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly RoleManager<IdentityRole> _roleManager; 
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            RoleManager<IdentityRole> roleManager) 
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
             _emailStore = GetEmailStore();
             _signInManager = signInManager;
             _logger = logger;
-            _roleManager = roleManager; 
+            _roleManager = roleManager;
         }
 
         [BindProperty]
@@ -68,38 +68,53 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-            if (ModelState.IsValid)
+            Console.WriteLine($"[DEBUG] OnPostAsync Called:");
+            Console.WriteLine($"        Email: '{Input?.Email}'");
+            Console.WriteLine($"        Password: '{Input?.Password}'");
+            Console.WriteLine($"        ConfirmPassword: '{Input?.ConfirmPassword}'");
+
+            if (!ModelState.IsValid)
             {
-                var user = CreateUser();
-
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
-
-                if (result.Succeeded)
+                Console.WriteLine("[DEBUG] ModelState is INVALID!");
+                foreach (var state in ModelState)
                 {
-                    _logger.LogInformation("User created a new account with password.");
-
-                    if (!await _roleManager.RoleExistsAsync("Customer"))
+                    foreach (var error in state.Value.Errors)
                     {
-                        await _roleManager.CreateAsync(new IdentityRole("Customer"));
+                        Console.WriteLine($"[DEBUG] Field '{state.Key}' Error: {error.ErrorMessage}");
                     }
-                    await _userManager.AddToRoleAsync(user, "Customer");
-
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    return LocalRedirect(returnUrl);
                 }
+                return Page();
+            }
 
-                foreach (var error in result.Errors)
+            var user = CreateUser();
+
+            await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
+            await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+            var result = await _userManager.CreateAsync(user, Input.Password);
+
+            if (result.Succeeded)
+            {
+                _logger.LogInformation("User created a new account with password.");
+
+                if (!await _roleManager.RoleExistsAsync("Customer"))
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    await _roleManager.CreateAsync(new IdentityRole("Customer"));
                 }
+                await _userManager.AddToRoleAsync(user, "Customer");
+
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return LocalRedirect(returnUrl);
+            }
+
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+                Console.WriteLine($"[DEBUG] Registration Error: {error.Description}");
             }
 
             return Page();
