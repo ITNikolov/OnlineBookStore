@@ -1,0 +1,51 @@
+﻿@page
+@model OnlineBookStore.Areas.Admin.Pages.Category.IndexModel
+@{
+    ViewData["Title"] = "Category Index";
+    Layout = "/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2 class="mb-3">Category List</h2>
+
+<div class="text-end mb-3">
+    <a asp-page="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Create New Category
+    </a>
+</div>
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Category Name</th>
+            <th>Display Order</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cat in Model.Categories)
+        {
+            <tr>
+                <td>@cat.Name</td>
+                <td>@cat.DisplayOrder</td>
+                <td class="text-end">
+                    <a asp-page="Edit" asp-route-id="@cat.CategoryId" class="btn btn-sm btn-primary">
+                        <i class="bi bi-pencil-square"></i> Edit
+                    </a>
+
+                    <form method="post" class="d-inline" asp-page-handler="Delete" asp-route-id="@cat.CategoryId">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

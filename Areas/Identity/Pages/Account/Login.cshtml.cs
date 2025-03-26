@@ -88,7 +88,7 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
             }
 
             Console.WriteLine("[DEBUG] Login FAILED! Invalid credentials.");
-            ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+            ModelState.AddModelError(string.Empty, "Login data Incorrect.");
             return Page();
         }
 
