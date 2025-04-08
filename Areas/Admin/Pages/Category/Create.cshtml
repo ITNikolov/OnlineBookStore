@@ -1,4 +1,48 @@
 ﻿@page
 @model OnlineBookStore.Areas.Admin.Pages.Category.CreateModel
+@using OnlineBookStore.Models
+
 @{
+    ViewData["Title"] = "Create Category";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Create Category</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
+
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Category.CategoryId" />
+
+            <div class="border p-3">
+                <div class="form-floating mb-3">
+                    <input asp-for="Category.Name" class="form-control border-0 shadow" placeholder="Enter category name..." />
+                    <label asp-for="Category.Name">Category Name</label>
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                </div>
+                <div class="form-floating mb-3">
+                    <input asp-for="Category.DisplayOrder" class="form-control border-0 shadow" placeholder="Enter display order..." />
+                    <label asp-for="Category.DisplayOrder">Display Order</label>
+                    <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary" style="width:150px">Create</button>
+                    <a asp-page="Index" class="btn btn-outline-primary" style="width:150px">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }
