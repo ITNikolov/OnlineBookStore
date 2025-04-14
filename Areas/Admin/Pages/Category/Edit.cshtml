@@ -1,4 +1,49 @@
-﻿@page
+﻿@page "{id:int}"
 @model OnlineBookStore.Areas.Admin.Pages.Category.EditModel
+@using OnlineBookStore.Models
+
 @{
+    ViewData["Title"] = "Edit Category";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-secondary bg-gradient">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">Edit Category</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Category.CategoryId" />
+            <div class="border p-3 mt-4">
+                <div class="form-floating mb-3">
+                    <input asp-for="Category.Name"
+                           class="form-control border-0 shadow"
+                           placeholder="Enter category name..." />
+                    <label asp-for="Category.Name" class="ms-2">Category Name</label>
+                    <span asp-validation-for="Category.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-3">
+                    <input asp-for="Category.DisplayOrder"
+                           class="form-control border-0 shadow"
+                           placeholder="Enter display order..." />
+                    <label asp-for="Category.DisplayOrder" class="ms-2">Display Order</label>
+                    <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-primary mt-2" style="width:150px">Update</button>
+                    <a asp-page="Index" class="btn btn-secondary mt-2" style="width:150px">Back to List</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

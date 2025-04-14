@@ -18,13 +18,11 @@ namespace OnlineBookStore.Areas.Admin.Pages.Category
 
         public async Task OnGetAsync()
         {
-            // Retrieve categories from DB, ordered by DisplayOrder
             Categories = await _db.Categories
                 .OrderBy(c => c.DisplayOrder)
                 .ToListAsync();
         }
 
-        // This method handles deleting a category on POST
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
             var category = await _db.Categories.FindAsync(id);
@@ -36,7 +34,6 @@ namespace OnlineBookStore.Areas.Admin.Pages.Category
             _db.Categories.Remove(category);
             await _db.SaveChangesAsync();
 
-            // Display a success message after deleting
             TempData["success"] = "Category deleted successfully";
             return RedirectToPage();
         }
