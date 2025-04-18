@@ -1,4 +1,38 @@
-﻿@page
+﻿@page "/"
 @model OnlineBookStore.Pages.Home.IndexModel
+@using OnlineBookStore.Models
+
 @{
+    Layout = "/Pages/Shared/_Layout.cshtml";
 }
+
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-3">
+    @foreach (var product in Model.Featured)
+    {
+        <div class="col">
+            <div class="card book-card shadow border-top border-4">
+                <img src="@product.ImageURL" class="card-img-top rounded" alt="@product.Title" />
+
+                <div class="card-body text-center">
+                    <p class="card-title book-title text-dark text-uppercase fw-bold mb-1">
+                        @product.Title
+                    </p>
+                    <p class="text-warning book-author mb-2">
+                        by <b>@product.Author</b>
+                    </p>
+                    <p class="text-dark text-opacity-75 mb-1">
+                        List Price:
+                        <span class="text-black">
+                            @product.ListPrice.ToString("C")
+                        </span>
+                    </p>
+                    <a asp-page="/Products/Details"
+                       asp-route-id="@product.Id"
+                       class="btn btn-sm btn-primary bg-gradient border-0 w-100">
+                        Details
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

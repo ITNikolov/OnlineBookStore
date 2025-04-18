@@ -1,13 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@model OnlineBookStore.Models.Product
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-</head>
-<body>
-    <div>
-        @RenderBody()
+<div class="card book-card shadow-sm border-0 p-2">
+    <img src="@Model.ImageURL" class="card-img-top rounded" alt="@Model.Title" />
+
+    <div class="card-body text-center">
+        <h6 class="card-title text-uppercase text-dark fw-bold">@Model.Title</h6>
+        <p class="text-warning mb-1">by <b>@Model.Author</b></p>
+        <p class="mb-0 text-muted small">List Price: <span class="text-black">@Model.ListPrice.ToString("c")</span></p>
+        <a asp-page="/Product/Details" asp-route-id="@Model.Id" class="btn btn-sm btn-outline-primary mt-2 w-100">Details</a>
     </div>
-</body>
-</html>
+</div>
