@@ -17,7 +17,7 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToPage("/Index");
+            return RedirectToPage("/Home/Index");
         }
     }
 }

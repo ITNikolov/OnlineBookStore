@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-page="/">Book's Home</a>
+                <a class="navbar-brand" asp-page="/Home/Index">Book's Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -21,10 +21,10 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Product/Index">Product List</a>
+                            <a class="nav-link" asp-page="/Products/List">Product List</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/Checkout">Checkout</a>
+                            <a class="nav-link" asp-page="/Checkout/Index">Checkout</a>
                         </li>
 
                         @if (User.IsInRole("Admin"))
