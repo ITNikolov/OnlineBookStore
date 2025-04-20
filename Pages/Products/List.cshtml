@@ -1,4 +1,58 @@
 ﻿@page
 @model OnlineBookStore.Pages.Products.ListModel
+@using OnlineBookStore.Models
+
 @{
+    ViewData["Title"] = "Product List";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center my-4">Explore Our Books</h2>
+
+<div class="row mb-3">
+    <div class="col-md-6 offset-md-3">
+        <input id="searchInput" class="form-control" type="text" placeholder="Search by title or author..." />
+    </div>
+</div>
+
+<table id="tblData" class="table table-bordered table-striped w-100">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>ISBN</th>
+            <th>Price</th>
+            <th>Author</th>
+            <th>Category</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody id="productTableBody">
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Title</td>
+                <td>@product.ISBN</td>
+                <td>@product.ListPrice.ToString("C")</td>
+                <td>@product.Author</td>
+                <td>@product.Category?.Name</td>
+                <td>
+                    <a asp-page="/Products/Details" asp-route-id="@product.Id" class="btn btn-sm btn-outline-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.getElementById("searchInput").addEventListener("input", function () {
+            const filter = this.value.toLowerCase();
+            const rows = document.querySelectorAll("#productTableBody tr");
+
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
 }
