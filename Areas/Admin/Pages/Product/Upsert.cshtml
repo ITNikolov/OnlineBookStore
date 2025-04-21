@@ -3,110 +3,110 @@
 @using OnlineBookStore.Models
 
 @{
-    var isEdit = Model.Product.Id != 0;
-    ViewData["Title"] = isEdit ? "Update Product" : "Create Product";
-    Layout = "/Pages/Shared/_Layout.cshtml";  
+	var isEdit = Model.Product.Id != 0;
+	ViewData["Title"] = isEdit ? "Update Product" : "Create Product";
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <div class="card shadow border-0 my-4">
-    <div class="card-header bg-secondary bg-gradient">
-        <div class="row">
-            <div class="col-12 text-center">
-                <h2 class="text-white py-2">@ViewData["Title"]</h2>
-            </div>
-        </div>
-    </div>
-    <div class="card-body p-4">
-        <form method="post" enctype="multipart/form-data">
-            @Html.AntiForgeryToken()
+	<div class="card-header bg-secondary bg-gradient">
+		<div class="row">
+			<div class="col-12 text-center">
+				<h2 class="text-white py-2">@ViewData["Title"]</h2>
+			</div>
+		</div>
+	</div>
+	<div class="card-body p-4">
+		<form method="post" enctype="multipart/form-data">
+			@Html.AntiForgeryToken()
 
-            <input asp-for="Product.Id" type="hidden" />
-            <input asp-for="Product.ImageURL" type="hidden" />
+			<input asp-for="Product.Id" type="hidden" />
+			<input asp-for="Product.ImageURL" type="hidden" />
 
-            <div class="row">
-                <div class="col-10">
-                    <div class="border p-3">
-                        <div asp-validation-summary="All" class="alert alert-danger"></div>
+			<div class="row">
+				<div class="col-10">
+					<div class="border p-3">
+						<div asp-validation-summary="All" class="alert alert-danger"></div>
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Product.Title" class="form-control border-0 shadow" placeholder="Title" />
-                            <label asp-for="Product.Title">Title</label>
-                            <span asp-validation-for="Product.Title" class="text-danger"></span>
-                        </div>
+						<div class="form-floating mb-3">
+							<input asp-for="Product.Title" class="form-control border-0 shadow" placeholder="Title" />
+							<label asp-for="Product.Title">Title</label>
+							<span asp-validation-for="Product.Title" class="text-danger"></span>
+						</div>
 
-                        <div class="mb-3">
-                            <label asp-for="Product.Description" class="form-label">Description</label>
-                            <textarea asp-for="Product.Description" class="form-control border-0 shadow"></textarea>
-                            <span asp-validation-for="Product.Description" class="text-danger"></span>
-                        </div>
+						<div class="mb-3">
+							<label asp-for="Product.Description" class="form-label">Description</label>
+							<textarea asp-for="Product.Description" class="form-control border-0 shadow"></textarea>
+							<span asp-validation-for="Product.Description" class="text-danger"></span>
+						</div>
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Product.ISBN" class="form-control border-0 shadow" placeholder="ISBN" />
-                            <label asp-for="Product.ISBN">ISBN</label>
-                            <span asp-validation-for="Product.ISBN" class="text-danger"></span>
-                        </div>
+						<div class="form-floating mb-3">
+							<input asp-for="Product.ISBN" class="form-control border-0 shadow" placeholder="ISBN" />
+							<label asp-for="Product.ISBN">ISBN</label>
+							<span asp-validation-for="Product.ISBN" class="text-danger"></span>
+						</div>
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Product.Author" class="form-control border-0 shadow" placeholder="Author" />
-                            <label asp-for="Product.Author">Author</label>
-                            <span asp-validation-for="Product.Author" class="text-danger"></span>
-                        </div>
+						<div class="form-floating mb-3">
+							<input asp-for="Product.Author" class="form-control border-0 shadow" placeholder="Author" />
+							<label asp-for="Product.Author">Author</label>
+							<span asp-validation-for="Product.Author" class="text-danger"></span>
+						</div>
 
-                        <div class="form-floating mb-3">
-                            <input asp-for="Product.ListPrice" class="form-control border-0 shadow" placeholder="List Price" />
-                            <label asp-for="Product.ListPrice">List Price</label>
-                            <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
-                        </div>
+						<div class="form-floating mb-3">
+							<input asp-for="Product.ListPrice" class="form-control border-0 shadow" placeholder="List Price" />
+							<label asp-for="Product.ListPrice">List Price</label>
+							<span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+						</div>
 
-                        <div class="form-floating mb-3">
-                            <select asp-for="Product.CategoryId"
-                                    asp-items="Model.CategoryList"
-                                    class="form-select border-0 shadow">
-                                <option value="">Select Category</option>
-                            </select>
-                            <label asp-for="Product.CategoryId">Category</label>
-                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
-                        </div>
+						<div class="form-floating mb-3">
+							<select asp-for="Product.CategoryId"
+									asp-items="Model.CategoryList"
+									class="form-select border-0 shadow">
+								<option value="">Select Category</option>
+							</select>
+							<label asp-for="Product.CategoryId">Category</label>
+							<span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+						</div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Product Image</label>
-                            <input type="file" name="file" class="form-control border-0 shadow" />
-                        </div>
+						<div class="mb-3">
+							<label class="form-label">Product Image</label>
+							<input type="file" name="file" class="form-control border-0 shadow" />
+						</div>
 
-                        <div class="d-flex justify-content-between">
-                            <button type="submit"
-                                    class="btn btn-primary"
-                                    style="width:150px">
-                                @(isEdit ? "Update" : "Create")
-                            </button>
-                            <a asp-area="Admin"
-                               asp-page="/Product/Index"
-                               class="btn btn-outline-primary"
-                               style="width:150px">
-                                Back to List
-                            </a>
-                        </div>
-                    </div>
-                </div>
+						<div class="d-flex justify-content-between">
+							<button type="submit"
+									class="btn btn-primary"
+									style="width:150px">
+								@(isEdit ? "Update" : "Create")
+							</button>
+							<a asp-area="Admin"
+							   asp-page="/Product/Index"
+							   class="btn btn-outline-primary"
+							   style="width:150px">
+								Back to List
+							</a>
+						</div>
+					</div>
+				</div>
 
-                <div class="col-2">
-                    @if (!string.IsNullOrEmpty(Model.Product.ImageURL))
-                    {
-                        <img src="@Model.Product.ImageURL"
-                             style="width:100%;border-radius:5px;border:1px solid #bbb9b9"
-                             alt="Product image" />
-                    }
-                </div>
-            </div>
-        </form>
-    </div>
+				<div class="col-2">
+					@if (!string.IsNullOrEmpty(Model.Product.ImageURL))
+					{
+						<img src="@Model.Product.ImageURL"
+							 style="width:100%;border-radius:5px;border:1px solid #bbb9b9"
+							 alt="Product image" />
+					}
+				</div>
+			</div>
+		</form>
+	</div>
 </div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        tinymce.init({
-            selector: 'textarea',
-        });
-    </script>
+	<partial name="_ValidationScriptsPartial" />
+	<script>
+		tinymce.init({
+			selector: 'textarea',
+		});
+	</script>
 }

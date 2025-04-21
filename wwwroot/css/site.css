@@ -48,3 +48,8 @@ body {
 .book-author {
     font-size: 0.85rem;
 }
+
+.card-img-top {
+    height: 300px;
+    object-fit: cover;
+}

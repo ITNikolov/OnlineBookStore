@@ -36,7 +36,7 @@ namespace OnlineBookStore.Models
         [ValidateNever]
         public Category Category { get; set; }
 
-        [Required(ErrorMessage = "Image is required.")]
-        public string ImageURL { get; set; } = string.Empty;
+        public string? ImageURL { get; set; }
+
     }
 }
