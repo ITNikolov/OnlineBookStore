@@ -1,4 +1,34 @@
 ﻿@page
 @model OnlineBookStore.Pages.Cart.IndexModel
+
 @{
+    ViewData["Title"] = "Your Cart";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Your Cart</h2>
+
+@if (Model.CartItems.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Book</th>
+                <th>Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CartItems)
+            {
+                <tr>
+                    <td>@item.Product.Title</td>
+                    <td>@item.Count</td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
