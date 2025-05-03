@@ -1,34 +1,63 @@
 ﻿@page
 @model OnlineBookStore.Pages.Cart.IndexModel
-
+@using OnlineBookStore.Models
 @{
-    ViewData["Title"] = "Your Cart";
-    Layout = "/Pages/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Your Cart";
+	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <h2>Your Cart</h2>
 
 @if (Model.CartItems.Count == 0)
 {
-    <p>Your cart is empty.</p>
+	<div class="alert alert-info mt-4">Your cart is empty.</div>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Book</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.CartItems)
-            {
-                <tr>
-                    <td>@item.Product.Title</td>
-                    <td>@item.Quantity</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+	<div class="row">
+		<div class="col-md-10 offset-md-1">
+			@foreach (var item in Model.CartItems)
+			{
+				<div class="card mb-3 shadow-sm">
+					<div class="row g-0 align-items-center">
+						<div class="col-md-2 text-center">
+							<img src="@item.Product.ImageURL" class="img-fluid rounded-start" style="max-height: 100px;" />
+						</div>
+						<div class="col-md-8">
+							<div class="card-body">
+								<h5 class="card-title">@item.Product.Title</h5>
+								<p class="card-text text-muted mb-1">by @item.Product.Author</p>
+								<p class="card-text">
+									<strong>Quantity:</strong>
+									<form method="post" asp-page-handler="UpdateQuantity" asp-route-id="@item.ProductId" class="d-inline-flex align-items-center">
+										<button name="operation" value="decrease" class="btn btn-sm btn-outline-secondary mx-1" type="submit">-</button>
+										<span>@item.Quantity</span>
+										<button name="operation" value="increase" class="btn btn-sm btn-outline-secondary mx-1" type="submit">+</button>
+									</form>
+								</p>
+								<p class="card-text">
+									<strong>Price:</strong> @((item.Product.ListPrice * item.Quantity).ToString("C"))
+								</p>
+							</div>
+						</div>
+						<div class="col-md-2 text-center">
+							<!-- Future: Add increment/decrement -->
+							<form method="post" asp-page-handler="Remove" asp-route-id="@item.ProductId">
+								<button type="submit" class="btn btn-sm btn-danger mt-3">Remove</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			}
+
+			<form method="post" asp-page-handler="PlaceOrder">
+				<button type="submit" class="btn btn-success mt-3">
+					Place Order
+				</button>
+			</form>
+		</div>
+	</div>
 }
+
+
+
