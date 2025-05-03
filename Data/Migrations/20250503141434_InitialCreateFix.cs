@@ -5,7 +5,7 @@
 namespace OnlineBookStore.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class FixIdentity : Migration
+    public partial class InitialCreateFix : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
