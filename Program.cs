@@ -24,7 +24,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
-
+builder.Services.AddSession();
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
 
@@ -48,6 +49,8 @@ app.UseRouting();  // Make sure this comes before endpoint mappings
 
 app.UseAuthentication();  // Ensure authentication is called before authorization
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

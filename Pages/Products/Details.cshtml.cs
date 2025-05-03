@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using OnlineBookStore.Data;
 using OnlineBookStore.Models;
+using OnlineBookStore.Utility;
 
 namespace OnlineBookStore.Pages.Products
 {
@@ -32,10 +33,33 @@ namespace OnlineBookStore.Pages.Products
             return Page();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync(int productId, int quantity)
         {
-            // Future implementation for Add to Cart
-            return Page();
+            var product = await _db.Products.FindAsync(productId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
+
+            var cartItem = cart.FirstOrDefault(c => c.ProductId == productId);
+            if (cartItem != null)
+            {
+                cartItem.Quantity += quantity;
+            }
+            else
+            {
+                cart.Add(new CartItem
+                {
+                    ProductId = productId,
+                    Quantity = quantity
+                });
+            }
+
+            HttpContext.Session.Set("Cart", cart);
+
+            return RedirectToPage("/Cart/Index");
         }
     }
 }
