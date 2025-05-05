@@ -49,12 +49,19 @@ else
 					</div>
 				</div>
 			}
+			<hr />
+			<div class="text-end">
+				<h5>
+					Total:
+					<span class="text-success fw-bold">
+						@Model.CartItems.Sum(i => i.Product.ListPrice * i.Quantity).ToString("C")
+					</span>
+				</h5>
 
-			<form method="post" asp-page-handler="PlaceOrder">
-				<button type="submit" class="btn btn-success mt-3">
-					Place Order
-				</button>
-			</form>
+				<a asp-page="/Checkout/Index" class="btn btn-success mt-2">
+					Proceed to Checkout
+				</a>
+			</div>
 		</div>
 	</div>
 }
