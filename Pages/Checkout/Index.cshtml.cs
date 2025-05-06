@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineBookStore.Data;
 using OnlineBookStore.Models;
 using OnlineBookStore.Utility;
+using Order = OnlineBookStore.Models.Order;
+
 
 namespace OnlineBookStore.Pages.Checkout
 {
@@ -25,7 +27,7 @@ namespace OnlineBookStore.Pages.Checkout
             LoadCartAndCalculateTotal();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
@@ -33,10 +35,40 @@ namespace OnlineBookStore.Pages.Checkout
                 return Page();
             }
 
+            var cartItems = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new();
+
+            foreach (var item in cartItems)
+            {
+                item.Product = _db.Products.FirstOrDefault(p => p.Id == item.ProductId);
+            }
+
+            var order = new Models.Order
+            {
+                UserId = User.Identity?.Name ?? "Guest",
+                FullName = CheckoutForm.FullName,
+                Email = CheckoutForm.Email,
+                Address = CheckoutForm.Address,
+                Country = CheckoutForm.Country,
+                City = CheckoutForm.City,
+                ZipCode = CheckoutForm.ZipCode,
+                CardNumber = CheckoutForm.CardNumber,
+                TotalAmount = cartItems.Sum(i => (decimal)i.Product.ListPrice * i.Quantity),
+                Items = cartItems.Select(i => new OrderItem
+                {
+                    ProductId = i.ProductId,
+                    Quantity = i.Quantity,
+                    Price = (decimal)i.Product.ListPrice
+                }).ToList()
+            };
+
+            _db.Orders.Add(order);
+            await _db.SaveChangesAsync();
+
             HttpContext.Session.Remove("Cart");
             TempData["success"] = "Your order has been placed!";
             return RedirectToPage("/Home/Index");
         }
+
 
         private void LoadCartAndCalculateTotal()
         {
