@@ -8,6 +8,7 @@ public class CheckoutViewModel
     public string Country { get; set; } = string.Empty;
     public string City { get; set; } = string.Empty;
     public string ZipCode { get; set; } = string.Empty;
+    public string CardNumber { get; set; } = string.Empty;
 
     public List<CartItem> CartItems { get; set; } = new();
 }
