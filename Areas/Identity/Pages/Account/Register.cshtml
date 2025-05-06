@@ -5,8 +5,6 @@
 	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
-<div asp-validation-summary="All" class="alert alert-danger" role="alert"></div>
-
 <form method="post" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">
 	@Html.AntiForgeryToken()
 
