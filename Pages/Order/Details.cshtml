@@ -1,4 +1,42 @@
-﻿@page
+﻿@page "{id:int}"
 @model OnlineBookStore.Pages.Order.DetailsModel
 @{
+    ViewData["Title"] = "Order Details";
+    Layout = "/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Order Details</h2>
+
+@if (Model.Order == null)
+{
+    <div class="alert alert-warning">Order not found.</div>
+}
+else
+{
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <strong>Order Date:</strong> @Model.Order.OrderDate.ToShortDateString() <br />
+            <strong>Total Amount:</strong> @Model.Order.TotalAmount.ToString("C")
+        </div>
+        <div class="card-body">
+            @foreach (var item in Model.Order.Items)
+            {
+                <div class="row mb-3 border-bottom pb-2 align-items-center">
+                    <div class="col-md-2">
+                        <img src="@item.Product?.ImageURL" class="img-fluid rounded" style="max-height: 80px;" />
+                    </div>
+                    <div class="col-md-7">
+                        <h5 class="mb-1">@item.Product?.Title</h5>
+                        <p class="text-muted mb-1">by @item.Product?.Author</p>
+                        <p class="mb-0"><strong>Quantity:</strong> @item.Quantity</p>
+                    </div>
+                    <div class="col-md-3 text-end">
+                        <p class="mb-0 text-success fw-bold">
+                            @item.Price.ToString("C") x @item.Quantity
+                        </p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
 }
