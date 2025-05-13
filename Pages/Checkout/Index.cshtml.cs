@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineBookStore.Data;
@@ -11,10 +12,11 @@ namespace OnlineBookStore.Pages.Checkout
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _db;
-
-        public IndexModel(ApplicationDbContext db)
+        private readonly UserManager<ApplicationUser> _users;
+        public IndexModel(ApplicationDbContext db, UserManager<ApplicationUser> users)
         {
             _db = db;
+            _users = users;
         }
 
         [BindProperty]
@@ -42,9 +44,10 @@ namespace OnlineBookStore.Pages.Checkout
                 item.Product = _db.Products.FirstOrDefault(p => p.Id == item.ProductId);
             }
 
+            var currentUserId = _users.GetUserId(User);
             var order = new Models.Order
             {
-                UserId = User.Identity?.Name ?? "Guest",
+                UserId = currentUserId,
                 FullName = CheckoutForm.FullName,
                 Email = CheckoutForm.Email,
                 Address = CheckoutForm.Address,

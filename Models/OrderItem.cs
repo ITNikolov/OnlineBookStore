@@ -1,4 +1,5 @@
 ﻿using OnlineBookStore.Models;
+using System.Text.Json.Serialization;
 
 public class OrderItem
 {
@@ -9,5 +10,7 @@ public class OrderItem
     public decimal Price { get; set; }
 
     public Product? Product { get; set; }
+
+    [JsonIgnore]
     public Order? Order { get; set; }
 }
