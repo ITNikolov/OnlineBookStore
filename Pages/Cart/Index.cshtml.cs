@@ -36,19 +36,35 @@ namespace OnlineBookStore.Pages.Cart
 
         public void OnGet()
         {
-            CartItems = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new List<CartItem>();
-
-            foreach (var item in CartItems)
-            {
-                item.Product = _db.Products.FirstOrDefault(p => p.Id == item.ProductId);
-            }
+            LoadCartFromSession();
         }
+        
         public IActionResult OnPostPlaceOrder()
         {
             HttpContext.Session.Remove("Cart"); 
             TempData["success"] = "Fake order placed. Cart cleared!";
             return RedirectToPage();
         }
+        public IActionResult OnPostRemove(int id)
+        {
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart") ?? new();
 
+            cart.RemoveAll(ci => ci.ProductId == id);
+
+            HttpContext.Session.Set("Cart", cart);
+            return RedirectToPage();
+        }
+
+        private void LoadCartFromSession()
+        {
+            CartItems = HttpContext.Session.Get<List<CartItem>>("Cart")
+                        ?? new List<CartItem>();
+
+            foreach (var item in CartItems)
+            {
+                item.Product = _db.Products
+                                  .FirstOrDefault(p => p.Id == item.ProductId);
+            }
+        }
     }
 }
