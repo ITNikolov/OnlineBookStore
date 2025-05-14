@@ -7,7 +7,7 @@
 
 <form method="post" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">
 	@Html.AntiForgeryToken()
-
+	<div asp-validation-summary="All" class="text-danger" role="alert"></div>
 	<h2>Create a new account.</h2>
 	<hr />
 
