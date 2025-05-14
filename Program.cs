@@ -17,16 +17,32 @@ var connectionString = builder.Configuration.GetConnectionString("DevConnection"
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 
 // Use Identity with this DbContext
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
     options.SignIn.RequireConfirmedAccount = false;
 })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy =>
+        policy.RequireRole("Admin"));
+});
+
+builder.Services.AddRazorPages() 
+    .AddRazorPagesOptions(options => {
+        options.Conventions.AuthorizeAreaFolder("Admin", "/", "AdminOnly");
+   });
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Error/403";
+});
+
 builder.Services.AddSession();
 builder.Services.AddDistributedMemoryCache();
-builder.Services.AddRazorPages();
 builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
 
 var app = builder.Build();
@@ -46,6 +62,8 @@ using (var scope = app.Services.CreateScope())
 app.UseStaticFiles();
 
 app.UseRouting();  // Make sure this comes before endpoint mappings
+
+app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
 app.UseAuthentication();  // Ensure authentication is called before authorization
 app.UseAuthorization();

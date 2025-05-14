@@ -2,7 +2,7 @@
 @model OnlineBookStore.Areas.Identity.Pages.Account.RegisterModel
 @{
 	ViewData["Title"] = "Register";
-	Layout = "/Pages/Shared/_Layout.cshtml";
+	Layout = "/Areas/Identity/Pages/Account/_AuthLayout.cshtml";
 }
 
 <form method="post" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@Model.ReturnUrl">

@@ -2,7 +2,7 @@
 @model OnlineBookStore.Areas.Identity.Pages.Account.LoginModel
 @{
 	ViewData["Title"] = "Login Test";
-	Layout = "/Pages/Shared/_Layout.cshtml";
+	Layout = "/Areas/Identity/Pages/Account/_AuthLayout.cshtml";
 }
 
 <div asp-validation-summary="All" class="text-danger" role="alert"></div>
@@ -21,8 +21,9 @@
 			   id="Input_Email"
 			   autocomplete="username" />
 		<span asp-validation-for="Input.Email" class="text-danger"></span>
+		<div class="text-muted text-center">We will never share your email adress!</div>
 	</div>
-
+	
 	<div class="mb-3">
 		<label asp-for="Input.Password">Password</label>
 		<input asp-for="Input.Password"
