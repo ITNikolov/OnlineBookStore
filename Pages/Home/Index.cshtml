@@ -19,16 +19,16 @@
 					<h5 class="card-title text-truncate mb-2" title="@product.Title">
 						@product.Title
 					</h5>
-					<p class="card-subtitle mb-3 text-muted small">
+					<p class="card-subtitle mb-1 text-muted small">
 						by <span class="text-primary fw-medium">@product.Author</span>
 					</p>
 					<div class="mt-auto">
-						<h6 class="text-danger fw-bold mb-3">
+						<h6 class="text-success fw-bold mb-1">
 							@product.ListPrice.ToString("C")
 						</h6>
 						<a asp-page="/Products/Details"
 						   asp-route-id="@product.Id"
-						   class="btn btn-outline-primary btn-sm w-100">
+						   class="btn btn-outline-accent btn-sm w-100">
 							View Details
 						</a>
 					</div>
@@ -38,7 +38,7 @@
 	}
 </div>
 
-<nav aria-label="Page navigation">
+<nav class="mt-3" aria-label="Page navigation">
 	<ul class="pagination justify-content-center">
 		<li class="page-item @(Model.Featured.HasPreviousPage ? "" : "disabled")">
 			<a class="page-link" asp-route-pageIndex="@(Model.Featured.PageIndex - 1)">Previous</a>
