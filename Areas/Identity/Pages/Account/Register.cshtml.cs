@@ -80,19 +80,10 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
 
             if (!ModelState.IsValid)
             {
-                Console.WriteLine("[DEBUG] ModelState is INVALID!");
-                foreach (var state in ModelState)
-                {
-                    foreach (var error in state.Value.Errors)
-                    {
-                        Console.WriteLine($"[DEBUG] Field '{state.Key}' Error: {error.ErrorMessage}");
-                    }
-                }
                 return Page();
             }
 
             var user = CreateUser();
-
             await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
             await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
             var result = await _userManager.CreateAsync(user, Input.Password);
@@ -107,8 +98,9 @@ namespace OnlineBookStore.Areas.Identity.Pages.Account
                 }
                 await _userManager.AddToRoleAsync(user, "Customer");
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return LocalRedirect(returnUrl);
+                TempData["RegistrationSuccess"] = "Your account was created. Please log in.";
+
+                return RedirectToPage("/Account/Login", new { area = "Identity", returnUrl });
             }
 
             foreach (var error in result.Errors)
