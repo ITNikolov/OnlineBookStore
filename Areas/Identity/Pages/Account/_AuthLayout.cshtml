@@ -1,10 +1,10 @@
 ﻿@{
-    IgnoreSection("Scripts");
     Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
 <div >
     <div class="auth-card">
         @RenderBody()
+        @RenderSection("Scripts", required: false)
     </div>
 </div>

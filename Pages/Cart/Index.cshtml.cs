@@ -40,7 +40,6 @@ namespace OnlineBookStore.Pages.Cart
         public IActionResult OnPostPlaceOrder()
         {
             HttpContext.Session.Remove("Cart");
-            TempData["success"] = "Fake order placed. Cart cleared!";
             return RedirectToPage();
         }
 

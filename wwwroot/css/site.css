@@ -175,3 +175,16 @@ body {
         color: #fff;
         border-color: #071108;
     }
+
+
+#pwdCriteria li {
+    display: flex;
+    align-items: center;
+    gap: .5rem; 
+}
+
+    #pwdCriteria li span {
+        display: inline-block;
+        width: 1.2em; 
+        text-align: center;
+    }

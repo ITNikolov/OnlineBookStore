@@ -52,26 +52,61 @@
 		</form>
 	</div>
 	<div class="info-col">
-		<h6>Password rules:</h6>
-		<ul>
-			<li>Minimum 6 characters</li>
-			<li>One lowercase letter</li>
-			<li>One number</li>
+		<p>Current Password Requirements:</p>
+		<ul class="list-unstyled mt-2 small" id="pwdCriteria">
+			<li id="crit-length"><span class="me-1">❌</span>At least 6 characters</li>
+			<li id="crit-upper"><span class="me-1">❌</span>One uppercase letter</li>
+			<li id="crit-lower"><span class="me-1">❌</span>One lowercase letter</li>
+			<li id="crit-number"><span class="me-1">❌</span>One number or symbol</li>
+			<li id="crit-match"><span class="me-1">❌</span>Passwords match</li>
 		</ul>
-
-		<h6>Why register?</h6>
-		<p>
-			Save your cart and view past orders.
-
-			Disclaimer !
-			<br>
-			Keep in mind that validation errors will not be displayed on invalid form submissions.
-			Making the site more secure for you and all the users.
-
-		</p>
 	</div>
 </main>
 
 @section Scripts {
 	<partial name="_ValidationScriptsPartial" />
+
+	<script>
+		document.addEventListener('DOMContentLoaded', () => {
+		  const pwdInput     = document.getElementById('Input_Password');
+		  const confirmInput = document.getElementById('Input_ConfirmPassword');
+		  if (!pwdInput || !confirmInput) {
+			console.warn('Password or Confirm Password input not found—live checker disabled.');
+			return;
+		  }
+
+		  const tests = {
+			length: pwd => pwd.length >= 6,
+			upper:  pwd => /[A-Z]/.test(pwd),
+			lower:  pwd => /[a-z]/.test(pwd),
+			number: pwd => /[0-9\W]/.test(pwd),
+			match:  ()  => pwdInput.value !== '' && pwdInput.value === confirmInput.value
+		  };
+
+		  const map = {
+			length: 'crit-length',
+			upper:  'crit-upper',
+			lower:  'crit-lower',
+			number: 'crit-number',
+			match:  'crit-match'
+		  };
+
+		  function runChecks() {
+			Object.keys(tests).forEach(key => {
+			  const passed = tests[key](pwdInput.value);
+			  const li   = document.getElementById(map[key]);
+			  const icon = li.querySelector('span');
+
+			  li.classList.toggle('text-success', passed);
+			  li.classList.toggle('text-danger', !passed);
+			  icon.textContent = passed ? '✓' : '❌';
+			});
+		  }
+
+		  pwdInput.addEventListener('input',   runChecks);
+		  confirmInput.addEventListener('input', runChecks);
+
+		  runChecks();
+		});
+	</script>
 }

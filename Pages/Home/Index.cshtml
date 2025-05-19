@@ -6,6 +6,14 @@
 	Layout = "/Pages/Shared/_Layout.cshtml";
 }
 
+@if (TempData["success"] is string msg)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@msg
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
 <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2">
 	@foreach (var product in Model.Featured)
 	{
