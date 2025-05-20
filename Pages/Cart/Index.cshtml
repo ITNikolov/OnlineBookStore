@@ -36,7 +36,7 @@ else
 									</form>
 								</p>
 								<p class="card-text">
-									<strong>Price:</strong> @((item.Product.ListPrice * item.Quantity).ToString("C"))
+									<strong>Price:</strong> @((item.Product.ListPrice * item.Quantity).ToString("0.00"))
 								</p>
 							</div>
 						</div>
@@ -53,7 +53,7 @@ else
 				<h5>
 					Total:
 					<span class="text-success fw-bold">
-						@Model.CartItems.Sum(i => i.Product.ListPrice * i.Quantity).ToString("C")
+						@Model.CartItems.Sum(i => i.Product.ListPrice * i.Quantity).ToString("0.00")
 					</span>
 				</h5>
 

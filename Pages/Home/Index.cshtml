@@ -32,7 +32,7 @@
 					</p>
 					<div class="mt-auto">
 						<h6 class="text-success fw-bold mb-1">
-							@product.ListPrice.ToString("C")
+							@product.ListPrice.ToString("0.00")
 						</h6>
 						<a asp-page="/Products/Details"
 						   asp-route-id="@product.Id"

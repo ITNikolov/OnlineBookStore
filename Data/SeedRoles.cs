@@ -33,7 +33,7 @@ namespace OnlineBookStore.Data
                 Console.WriteLine("Admin user does not exist, creating now...");
                 var user = new ApplicationUser { UserName = adminEmail, Email = adminEmail };
 
-                var createUser = await userManager.CreateAsync(user, "Admin@12345"); // Ensure a strong password
+                var createUser = await userManager.CreateAsync(user, "Admin@12345");
 
                 if (createUser.Succeeded)
                 {
