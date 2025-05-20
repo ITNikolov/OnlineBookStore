@@ -14,7 +14,10 @@ var connectionString = builder.Configuration.GetConnectionString("DevConnection"
     ?? throw new InvalidOperationException("Connection string 'DevConnection' not found.");
 
 // Register a single DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ApplicationDbContext>(opts =>
+  opts.UseSqlite($"Data Source={builder.Environment.ContentRootPath}/bookstore.db"));
+
 
 // Use Identity with this DbContext
 builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -56,6 +59,9 @@ if (!app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.EnsureCreated();
+
     var services = scope.ServiceProvider;
     await SeedRoles.Initialize(services);
 }
