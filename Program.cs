@@ -14,7 +14,7 @@ var connectionString = builder.Configuration.GetConnectionString("DevConnection"
     ?? throw new InvalidOperationException("Connection string 'DevConnection' not found.");
 
 // Register a single DbContext
-//builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+// builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddDbContext<ApplicationDbContext>(opts =>
   opts.UseSqlite($"Data Source={builder.Environment.ContentRootPath}/bookstore.db"));
 
@@ -68,11 +68,11 @@ using (var scope = app.Services.CreateScope())
 
 app.UseStaticFiles();
 
-app.UseRouting();  // Make sure this comes before endpoint mappings
+app.UseRouting();  
 
 app.UseStatusCodePagesWithReExecute("/Error/{0}");
 
-app.UseAuthentication();  // Ensure authentication is called before authorization
+app.UseAuthentication();  
 app.UseAuthorization();
 
 app.UseSession();

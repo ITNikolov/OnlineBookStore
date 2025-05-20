@@ -14,7 +14,7 @@ namespace OnlineBookStore.Models
         public string Title { get; set; } = string.Empty;
 
         [MaxLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
-        public string? Description { get; set; } // Optional, but limited to 500 chars.
+        public string? Description { get; set; }
 
         [Required(ErrorMessage = "ISBN is required.")]
         [MaxLength(20, ErrorMessage = "ISBN cannot exceed 20 characters.")]
