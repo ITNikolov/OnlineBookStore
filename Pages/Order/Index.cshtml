@@ -24,7 +24,7 @@ else
                     @order.OrderDate.ToShortDateString()
                 </div>
                 <div class="fw-bold">
-                    Total: @order.TotalAmount.ToString("0.00")
+                    Total: $@order.TotalAmount.ToString("0.00")
                 </div>
                 <form method="post"
                       asp-page-handler="DeleteOrder"
