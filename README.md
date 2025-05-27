@@ -1,5 +1,5 @@
 <p align="center">
-  **Online Book Store**
+  ...Online Book Store
 </p>
 
 
