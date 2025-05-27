@@ -1,6 +1,6 @@
-<p align="center">
-  #**Online Book Store**
-</p>
+
+<h1 align="center">Online Book Store</h1> 
+
 
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)  <br/>
