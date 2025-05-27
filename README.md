@@ -15,27 +15,27 @@ Application is built to help me understand complex systems and experience the en
 
 **Features**<br/>
 
-**-Public Book Display**<br/>
+<h2>Public Book Display</h2><br/>
    -Homepage with featured books <br/>
    -Full product list with client-side search<br/>
    -Book details + “Add to Cart”<br/>
    -Server-side Pagination<br/>
 
-**-Cart & Checkout**  <br/>
+ <h2>Cart & Checkout</h2><br/>
     -Session-backed shopping cart<br/>
     -Order placement<br/>
     -History if logged in<br/>
 
-**-Admin Area** <br/>
+<h2>Admin Area</h2> <br/>
     -CRUD Operations for Categories and Products<br/>
     -Data Tables with Edit/Delete operations<br/>
     
-**-Auth & Roles** <br/>
+<h2>Auth & Roles</h2><br/>
     -ASP .NET Core Identity Admin/Customer<br/>
     -Admin profile seed<br/>
     -Custom client-side password strength checker<br/>
     
-**-Tech Stack** <br/>
+<h2>Tech Stack</h2> <br/>
     -Backend: ASP .Net Core Razor Pages<br/>
     -Frontend: Bootstrap , Custom CSS<br/>
     -Database: Entity Framework Core with SQL Database / Deployed with SQLite File Database<br/>
