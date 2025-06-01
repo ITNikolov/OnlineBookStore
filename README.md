@@ -1,11 +1,9 @@
 
 <h1 align="center">Online Book Store</h1> 
 
-
+Live on Render.com : https://onlinebookstore-z7ts.onrender.com/
 
 [![.NET](https://img.shields.io/badge/.NET-8.0-blue)](https://dotnet.microsoft.com/)  <br/>
-
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)]()<br/>
 
 Basic E-commerce site build in ASP .NET Core Razor Pages as a practice project. Browse books, add to cart, checkout, and manage products via an Admin area.<br/>
 
