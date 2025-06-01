@@ -9,8 +9,6 @@ Basic E-commerce site build in ASP .NET Core Razor Pages as a practice project. 
 
 Application is built to help me understand complex systems and experience the entire app-building process from start to finish.<br/>
 
-**Live Demo**: https://onlinebookstore-z7ts.onrender.com/ <br/>
-
 **Features**<br/>
 
 <h2>Public Book Display</h2><br/>
