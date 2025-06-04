@@ -31,6 +31,15 @@ namespace OnlineBookStore.Pages.Checkout
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+
+                HttpContext.Session.Remove("Cart");
+                TempData["error"] = "You must be logged in to place an order.";
+                return RedirectToPage("/Account/Login", new { area = "Identity", returnUrl = "/Checkout/Index" });
+
+            }
+
             if (!ModelState.IsValid)
             {
                 LoadCartAndCalculateTotal();
